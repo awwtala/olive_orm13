@@ -34,14 +34,16 @@ Product.init(
           isNumeric: true,
         },
       },
-        category_id: {
-          type: DataTypes.INTEGER,
-          references:{
-            //missing 
-          }
+      category_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          // This references the `category` model, which we set in `Driver.js` as its `modelName` property
+          model: "category",
+          key: "id",
         },
       },
     },
+  },
   {
     sequelize,
     timestamps: false,
