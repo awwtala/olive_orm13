@@ -42,7 +42,7 @@ router.put("/:id", (req, res) => {
     },
     {
       where: {
-        category_id: req.params.book_id,
+        category_id: req.params.category_id,
       },
     }
   )
@@ -54,10 +54,10 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   // delete a category by its `id` value
-  book
+  Category
     .destroy({
       where: {
-        category_id: req.params.book_id,
+        category_id: req.params.category_id,
       },
     })
     .then((deletedCategory) => {
