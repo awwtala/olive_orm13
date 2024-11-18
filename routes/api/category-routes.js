@@ -2,68 +2,86 @@ const router = require("express").Router();
 const { Category, Product } = require("../../models");
 
 // The `/api/categories` endpoint
-
-// find all categories
-// be sure to include its associated Products
-router.get("/", (req, res) => {
-  Category.findAll({
-    include: [Product],
-  }).then((category) => {
-    res.json(category);
-  });
+// find all categoriey
+router.get("/", async (req, res) => {
+  try {
+    const categoryData = await Category.findAll({
+      include: [{ model: Product }],
+    });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // find one category by its `id` value
 // be sure to include its associated Products
-router.get("/:id", (req, res) => {
-  Category.findOne({
-    include: [Product],
-  }).then((category) => {
-    res.json(category);
-  });
-});
-
-router.post("/", (req, res) => {
-  //create a new category
-  Category.create(req.body)
-    .then((newCategory) => {
-      res.json(newCategory);
-    })
-    .catch((err) => {
-      res.json(err);
+router.get("/:id", async (req, res) => {
+  try {
+    const categoryDataId = await Category.findByPk(req.params.id, {
+      include: [{ model: Product }],
     });
-});
-
-router.put("/:id", (req, res) => {
-  // update a category by its `id` value
-  Category.update(
-    {
-      // all fields here
-    },
-    {
-      where: {
-        category_id: req.params.category_id,
-      },
+    if (!categoryIdData) {
+      res
+        .status(400)
+        .json({ message: "This Id does not belong to a category" });
+      return;
     }
-  )
-    .then((updatedCategory) => {
-      res.json(updatedCategory);
-    })
-    .catch((err) => res.json(err));
+    res.status(200).json(categoryDataId);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.delete("/:id", (req, res) => {
-  // delete a category by its `id` value
-  Category
-    .destroy({
-      where: {
-        category_id: req.params.category_id,
+router.post("/", async (req, res) => {
+  //create a new category
+  try {
+    const categoryNew = await Category.create({
+      category_name: req.body.category_name,
+    });
+    res.status(200).json(categoryNew);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  // update a category by its `id` value
+  try {
+    const categoryUpdate = await Category.update(
+      {
+        category_name: req.body.category_name,
       },
-    })
-    .then((deletedCategory) => {
-      res.json(deletedCategory);
-    })
-    .catch((err) => res.json(err));
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    res.status(200).json(categoryUpdate);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  // delete a category by its `id` value
+  try {
+    const CategoryDelete = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!categoryIdData) {
+      res
+        .status(400)
+        .json({ message: "This Id does not belong to a category" });
+      return;
+    }
+    res.status(200).json(CategoryDelete);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

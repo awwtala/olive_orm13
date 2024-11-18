@@ -18,12 +18,16 @@ Install the following into terminal:
 
 - npm i
 - express: 4.16.4
+- postgresSQL: 8.13.1
+- sequelize: 5.21.7
 
 ## Usage
 
 Step 1: open terminal to the correct folder.\
-Step 2: Type node server.js and hit enter.\
-Step 3: You will be presented with http://localhost:3001. Copy That link into your browser.
+Step 2: Type npm i to form your package.json
+Step 3: Type node server.js and hit enter.\
+Step 4: Type \i schema.sql to activate the schema. \
+Step 5: You will be presented with http://localhost:3001. Copy That link into your browser.
 
 ## questions
 
@@ -36,5 +40,6 @@ No tests were conducted.
 ## contributing
 
 Xpert learning assistant \
+Tutor assistant: Joem C.\
 Teacher assistant: Zac Warner \
 Students: Art Camacho, Thomas White.
