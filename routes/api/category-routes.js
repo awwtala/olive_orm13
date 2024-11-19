@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
     const categoryDataId = await Category.findByPk(req.params.id, {
       include: [{ model: Product }],
     });
-    if (!categoryIdData) {
+    if (!categoryDataId) {
       res
         .status(400)
         .json({ message: "This Id does not belong to a category" });
@@ -29,6 +29,7 @@ router.get("/:id", async (req, res) => {
     }
     res.status(200).json(categoryDataId);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -41,7 +42,7 @@ router.post("/", async (req, res) => {
     });
     res.status(200).json(categoryNew);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
@@ -72,7 +73,8 @@ router.delete("/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    if (!categoryIdData) {
+    console.log(CategoryDelete);
+    if (!CategoryDelete) {
       res
         .status(400)
         .json({ message: "This Id does not belong to a category" });
@@ -80,6 +82,7 @@ router.delete("/:id", async (req, res) => {
     }
     res.status(200).json(CategoryDelete);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

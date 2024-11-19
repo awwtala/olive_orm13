@@ -16,9 +16,12 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
-  Tag.findOne({
-    include: [Product],
-  }).then((tag) => {
+  Tag.findOne(
+    { id: req.params.id },
+    {
+      include: [Product],
+    }
+  ).then((tag) => {
     res.json(tag);
   });
 });
@@ -38,11 +41,11 @@ router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
   Tag.update(
     {
-      // all fields here
+      tag_name: req.body.tag_name,
     },
     {
       where: {
-        tag_id: req.params.tag_id,
+        id: req.params.id,
       },
     }
   )
@@ -56,7 +59,7 @@ router.delete("/:id", (req, res) => {
   // delete on tag by its `id` value
   Tag.destroy({
     where: {
-      tag_id: req.params.tag_id,
+      id: req.params.id,
     },
   })
     .then((deletedTag) => {
