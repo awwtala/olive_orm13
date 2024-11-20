@@ -1,4 +1,5 @@
 # olive_orm13
+Olive_ orm is a Object-Relational Mapping (ORM) that is using e-vommerce with back end. This allows the user to create a database, seed it using test data, and sync to the database. Using insomnia, users are able to GET, POST, PUT, and DELETE routes. 
 
 ## Description
 
@@ -27,7 +28,8 @@ Step 1: open terminal to the correct folder.\
 Step 2: Type npm i to form your package.json
 Step 3: Type node server.js and hit enter.\
 Step 4: Type \i schema.sql to activate the schema. \
-Step 5: You will be presented with http://localhost:3001. Copy That link into your browser.
+Step 5: You will be presented with http://localhost:3001. Step 6: Copy That link into your Insomnia app.
+![Alt text](<images/Screenshot 2024-11-19 at 10.22.19 PM.png>)
 
 ## questions
 
